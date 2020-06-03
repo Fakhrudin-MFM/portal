@@ -20,6 +20,7 @@ const extViews = require('lib/util/extViews');
 const errorSetup = require('core/error-setup');
 const i18nSetup = require('core/i18n-setup');
 const alias = require('core/scope-alias');
+const strings = require('core/strings');
 const merge = require('merge');
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -39,6 +40,8 @@ app.locals.sysTitle = config.sysTitle;
 app.locals.staticsSuffix = process.env.ION_ENV === 'production' ? '.min' : '';
 app.locals.module = moduleName;
 app.locals.lkModule = config.lkModule;
+app.locals.s = strings.s;
+app.locals.__ = (str, params) => strings.s(moduleName, str, params);
 
 app.engine('ejs', ejsLocals);
 app.set('view engine', 'ejs');

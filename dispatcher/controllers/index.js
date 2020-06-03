@@ -6,6 +6,8 @@
 const di = require('core/di');
 const moduleName = require('../../module-name');
 const {onError} = require('../../backend/error');
+const IonError = require('core/IonError');
+const Errors = require('../../errors/dispatcher');
 
 module.exports = function (req, res) {
   /**
@@ -13,7 +15,7 @@ module.exports = function (req, res) {
    */
   var scope = di.context(moduleName);
   if (!scope.portalMeta) {
-    return onError(scope, new Error('Не настроен репозиторий метаданных портала'), res);
+    return onError(scope, new IonError(Errors.NO_REPO), res);
   }
 
   var defaultPath = scope.settings.get(moduleName + '.default');
